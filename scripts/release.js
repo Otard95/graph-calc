@@ -28,6 +28,28 @@ async function writeJson(path, obj) {
   return await writeFile(path, JSON.stringify(obj, null, 2))
 }
 
+async function runCommand(command, liveOutput = false) {
+
+  return await new Promise((res, rej) => {
+    let out = ''
+    const cmd = cp.exec(command, (err) => {
+      if (err) rej(err)
+    })
+    cmd.stdout.on('data', data => {
+      out += `${data}`
+      if (liveOutput)
+        console.log(`${data}`)
+    })
+    cmd.stderr.on('data', data => {
+      out += `${data}`
+      if (liveOutput)
+        console.error(`${data}`)
+    })
+    cmd.on('exit', (code) => res({ ok: code === 0, out }))
+  }) 
+
+}
+
 async function git(strings, ...exps) {
 
   let command = 'git '
@@ -37,16 +59,7 @@ async function git(strings, ...exps) {
     command += `${str}${exp}`
   }
 
-  return await new Promise((res, rej) => {
-    cp.exec(command, (err, stdout, stderr) => {
-      if (err) rej(err)
-      if (stderr) {
-        res({ ok: false, out: stderr })
-      } else {
-        res({ ok: true, out: stdout })
-      }
-    })
-  }) 
+  return await runCommand(command)
 
 }
 
@@ -144,7 +157,7 @@ async function pushWithTags() {
   const {
     ok: pushOk,
     out: pushOut
-  } = await git`push origin --tags`
+  } = await git`push origin/main --tags`
 
   if (!pushOk) {
     console.error(chalk.red('Failed to push:'), '\n', pushOut)
@@ -155,21 +168,8 @@ async function pushWithTags() {
 }
 
 async function build() {
-
   console.log(chalk.blue('\nCreating production build...\n'))
-
-  return await new Promise((res, rej) => {
-    cp.exec('npm run build:prod --silent', (err, stdout, stderr) => {
-      if (err) rej(err)
-      console.log(stdout || stderr)
-      if (stderr) {
-        rej('Build failed')
-      } else {
-        res()
-      }
-    })
-  })
-
+  return await runCommand('npm run build:prod --silent', true)
 }
 
 async function abortHard() {
@@ -200,8 +200,6 @@ async function main() {
     return 2
   }
 
-  await build()
-
   const answers = await inquirer
     .prompt([
       {
@@ -223,6 +221,8 @@ async function main() {
 
   await writeJson(packagePath, package)
   await writeJson(configPath, config)
+
+  await build()
 
   if (!(await createReleaseCommit(answers.newVersion, answers.releaseComment))) {
     console.error(chalk.red('Aborting!'))
