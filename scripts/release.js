@@ -240,6 +240,9 @@ async function main() {
     return 7
   }
 
+  console.log(chalk.green('Done!'))
+  return 0
+
 }
 
 main()
