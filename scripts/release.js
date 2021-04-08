@@ -99,6 +99,85 @@ async function checkGitState () {
   return true
 }
 
+async function createReleaseCommit(version, comment) {
+
+  const commentAddition = comment
+    ? [
+        '',
+        '',
+        comment
+      ].join('\n')
+    : ''
+
+  console.log(chalk.blue('Committing version update...'))
+  const {
+    ok: commitOk,
+    out: commitOut
+  } = await git`commit -am "Automated release commit for v${version}${commentAddition}"`
+
+  if (!commitOk) {
+    console.error(chalk.red('Failed to commit changes:'), '\n', commitOut)
+    return false
+  }
+  return true
+
+}
+
+async function tagRelease(version) {
+  
+  console.log(chalk.blue('Tag and push...'))
+  const {
+    ok: tagOk,
+    out: tagOut
+  } = await git`tag v${version}`
+
+  if (!tagOk) {
+    console.error(chalk.red('Failed to tag:'), '\n', tagOut)
+    return false
+  }
+  return true
+
+}
+
+async function pushWithTags() {
+
+  const {
+    ok: pushOk,
+    out: pushOut
+  } = await git`push origin --tags`
+
+  if (!pushOk) {
+    console.error(chalk.red('Failed to push:'), '\n', pushOut)
+    return false
+  }
+  return true
+
+}
+
+async function build() {
+
+  console.log(chalk.blue('\nCreating production build...\n'))
+
+  return await new Promise((res, rej) => {
+    cp.exec('npm run build:prod --silent', (err, stdout, stderr) => {
+      if (err) rej(err)
+      console.log(stdout || stderr)
+      if (stderr) {
+        rej('Build failed')
+      } else {
+        res()
+      }
+    })
+  })
+
+}
+
+async function abortHard() {
+  console.log('Attempt reset...')
+  await git`reset --hard origin/main`
+  console.error(chalk.red('Aborting!'))
+}
+
 async function main() {
 
   if (!(await checkGitState())) {
@@ -121,12 +200,20 @@ async function main() {
     return 2
   }
 
+  await build()
+
   const answers = await inquirer
     .prompt([
       {
         name: 'newVersion',
         message: `New version number (current: ${currentVersion})`,
         validate: (input) => validateVersionNumber(input, currentVersion),
+        suffix: ':'
+      },
+      {
+        name: 'releaseComment',
+        message: 'Comment on release (optional)',
+        default: false,
         suffix: ':'
       }
     ])
@@ -137,35 +224,18 @@ async function main() {
   await writeJson(packagePath, package)
   await writeJson(configPath, config)
 
-  console.log(chalk.blue('Committing version update...'))
-  const {
-    ok: commitOk,
-    out: commitOut
-  } = await git`commit -am "Automated release commit for version ${answers.newVersion}"`
-
-  if (!commitOk) {
-    console.error(chalk.red('Failed to commit changes:'), '\n', commitOut)
+  if (!(await createReleaseCommit(answers.newVersion, answers.releaseComment))) {
+    console.error(chalk.red('Aborting!'))
     return 5
   }
 
-  console.log(chalk.blue('Tag and push...'))
-  const {
-    ok: tagOk,
-    out: tagOut
-  } = await git`tag v${answers.newVersion}`
-
-  if (!tagOk) {
-    console.error(chalk.red('Failed to tag:'), '\n', tagOut)
+  if (!(await tagRelease(answers.newVersion))) {
+    await abortHard()
     return 6
   }
 
-  const {
-    ok: pushOk,
-    out: pushOut
-  } = await git`push origin --tags`
-
-  if (!pushOk) {
-    console.error(chalk.red('Failed to push:'), '\n', pushOut)
+  if (!(await pushWithTags())) {
+    await abortHard()
     return 7
   }
 
