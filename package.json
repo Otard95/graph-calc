@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Otard95/prosperous-universe-calulator#readme",
   "devDependencies": {
+    "chalk": "^4.1.0",
     "inquirer": "^8.0.0",
     "parcel-bundler": "^1.12.5",
     "typescript": "^4.2.4"
