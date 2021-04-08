@@ -200,8 +200,6 @@ async function main() {
     return 2
   }
 
-  await build()
-
   const answers = await inquirer
     .prompt([
       {
@@ -223,6 +221,8 @@ async function main() {
 
   await writeJson(packagePath, package)
   await writeJson(configPath, config)
+
+  await build()
 
   if (!(await createReleaseCommit(answers.newVersion, answers.releaseComment))) {
     console.error(chalk.red('Aborting!'))
