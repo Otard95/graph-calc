@@ -40,7 +40,11 @@ async function git(strings, ...exps) {
   return await new Promise((res, rej) => {
     cp.exec(command, (err, stdout, stderr) => {
       if (err) rej(err)
-      res(stdout || stderr)
+      if (stderr) {
+        res({ ok: false, out: stderr })
+      } else {
+        res({ ok: true, out: stdout })
+      }
     })
   }) 
 
@@ -70,11 +74,15 @@ function validateVersionNumber(next, prev) {
   
 }
 
-async function main() {
-
+async function checkGitState () {
   console.log(chalk.blue('Verifying git state...'))
-  const gitStatus = await git`status -b --porcelain`
-  
+  const { ok, out: gitStatus } = await git`status -b --porcelain`
+
+  if (!ok) {
+    console.error(chalk.red('Failed to get git status:'), '\n', gitStatus)
+    return false
+  }
+
   if (gitStatus !== '## main...origin/main') {
     if (!gitStatus.startsWith('## main...origin/main')) {
       console.error(chalk.red('You are not on branch main'))
@@ -86,6 +94,14 @@ async function main() {
     if (lines.length > 1) {
       console.error(chalk.red('You have uncommitted changes'))
     }
+    return false
+  }
+  return true
+}
+
+async function main() {
+
+  if (!(await checkGitState())) {
     console.error(chalk.red('Aborting!'))
     return 4
   }
@@ -105,35 +121,59 @@ async function main() {
     return 2
   }
 
-  try {
+  const answers = await inquirer
+    .prompt([
+      {
+        name: 'newVersion',
+        message: `New version number (current: ${currentVersion})`,
+        validate: (input) => validateVersionNumber(input, currentVersion),
+        suffix: ':'
+      }
+    ])
 
-    const answers = await inquirer
-      .prompt([
-        {
-          name: 'newVersion',
-          message: `New version number (current: ${currentVersion})`,
-          validate: (input) => validateVersionNumber(input, currentVersion),
-          suffix: ':'
-        }
-      ])
+    package.version = answers.newVersion
+    config.version = answers.newVersion
 
-      package.version = answers.newVersion
-      config.version = answers.newVersion
+    await writeJson(packagePath, package)
+    await writeJson(configPath, config)
 
-      await writeJson(packagePath, package)
-      await writeJson(configPath, config)
+  console.log(chalk.blue('Committing version update...'))
+  const {
+    ok: commitOk,
+    out: commitOut
+  } = await git`commit -am "Automated release commit for version ${answers.newVersion}"`
 
-  } catch (err) {
-    console.error(err)
-    return 3
+  if (!commitOk) {
+    console.error(chalk.red('Failed to commit changes:'), '\n', commitOut)
+    return 5
+  }
+
+  console.log(chalk.blue('Tag and push...'))
+  const {
+    ok: tagOk,
+    out: tagOut
+  } = await git`tag v${answers.newVersion}`
+
+  if (!tagOk) {
+    console.error(chalk.red('Failed to tag:'), '\n', tagOut)
+    return 6
+  }
+
+  const {
+    ok: pushOk,
+    out: pushOut
+  } = await git`push origin --tags`
+
+  if (!pushOk) {
+    console.error(chalk.red('Failed to push:'), '\n', pushOut)
+    return 7
   }
 
 }
 
-try {
-  main()
-    .then(exitCode => process.exitCode = exitCode)
-} catch (err) {
-  console.error(err.message, err)
-  process.exit(1)
-}
+main()
+  .then(exitCode => process.exitCode = exitCode)
+  .catch(err => {
+    console.log(chalk.red(`Unexpected error - ${err.message}`), '\n', err)
+    process.exitCode = 1
+  })
