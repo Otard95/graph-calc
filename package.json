@@ -1,0 +1,19 @@
+{
+  "name": "prosperous-universe-calulator",
+  "version": "0.0.1",
+  "description": "A production profit calculator for Prosperous Universe",
+  "main": "build/prod/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Otard95/prosperous-universe-calulator.git"
+  },
+  "author": "Stian Myklebostad (https://github.com/Otard95)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Otard95/prosperous-universe-calulator/issues"
+  },
+  "homepage": "https://github.com/Otard95/prosperous-universe-calulator#readme"
+}
