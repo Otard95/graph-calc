@@ -83,11 +83,11 @@ async function checkGitState () {
     return false
   }
 
-  if (gitStatus !== '## main...origin/main') {
+  const lines = gitStatus.split('\n').filter(line => line.length > 0)
+  if (lines[0] !== '## main...origin/main') {
     if (!gitStatus.startsWith('## main...origin/main')) {
       console.error(chalk.red('You are not on branch main'))
     }
-    const lines = gitStatus.split('\n').filter(line => line.length > 0)
     if (lines[0].includes('[')) {
       console.error(chalk.red('You are not up to date with origin'))
     }
@@ -131,11 +131,11 @@ async function main() {
       }
     ])
 
-    package.version = answers.newVersion
-    config.version = answers.newVersion
+  package.version = answers.newVersion
+  config.version = answers.newVersion
 
-    await writeJson(packagePath, package)
-    await writeJson(configPath, config)
+  await writeJson(packagePath, package)
+  await writeJson(configPath, config)
 
   console.log(chalk.blue('Committing version update...'))
   const {
