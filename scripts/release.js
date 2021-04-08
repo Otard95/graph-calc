@@ -34,7 +34,7 @@ async function git(strings, ...exps) {
   for (let i = 0; i < strings.length; i++) {
     const str = strings[i]
     const exp = i < exps.length ? exps[i] : ''
-    command += `${str} ${exp} `
+    command += `${str}${exp}`
   }
 
   return await new Promise((res, rej) => {
