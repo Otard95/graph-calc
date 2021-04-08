@@ -72,19 +72,25 @@ function validateVersionNumber(next, prev) {
 
 async function main() {
 
-  console.log(chalk.blue('Verifying state...'))
+  console.log(chalk.blue('Verifying git state...'))
   const gitStatus = await git`status -b --porcelain`
+  
   if (gitStatus !== '## main...origin/main') {
     if (!gitStatus.startsWith('## main...origin/main')) {
-      console.error(chalk.red('You are not on origin/main'))
+      console.error(chalk.red('You are not on branch main'))
     }
-    if (gitStatus.split('\n').filter(line => line.length > 0).length > 1) {
+    const lines = gitStatus.split('\n').filter(line => line.length > 0)
+    if (lines[0].includes('[')) {
+      console.error(chalk.red('You are not up to date with origin'))
+    }
+    if (lines.length > 1) {
       console.error(chalk.red('You have uncommitted changes'))
     }
     console.error(chalk.red('Aborting!'))
     return 4
   }
 
+  // Load package.json and config.json
   const packagePath = path.resolve(process.cwd(), 'package.json')
   const configPath = path.resolve(process.cwd(), 'src', 'utils', 'config.json')
 
