@@ -168,6 +168,22 @@ async function pushWithTags() {
 
 }
 
+async function pushReleaseToGHPages() {
+
+  console.log(chalk.blue('Push release to gh-pages...'))
+  const {
+    ok: pushOk,
+    out: pushOut
+  } = await git`subtree push --prefix prod/ origin gh-pages`
+
+  if (!pushOk) {
+    console.error(chalk.red('Failed to push to gh-pages:'), '\n', pushOut)
+    return false
+  }
+  return true
+
+}
+
 async function build() {
   console.log(chalk.blue('\nCreating production build...\n'))
   return await runCommand('npm run build:prod --silent', true)
@@ -238,6 +254,10 @@ async function main() {
   if (!(await pushWithTags())) {
     await abortHard()
     return 7
+  }
+
+  if (!(await pushReleaseToGHPages())) {
+    return 8
   }
 
   console.log(chalk.green('Done!'))
