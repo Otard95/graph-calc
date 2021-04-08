@@ -158,10 +158,20 @@ async function pushWithTags() {
   const {
     ok: pushOk,
     out: pushOut
-  } = await git`push origin --tags`
+  } = await git`push`
 
   if (!pushOk) {
     console.error(chalk.red('Failed to push:'), '\n', pushOut)
+    return false
+  }
+
+  const {
+    ok: pushTagsOk,
+    out: pushTagsOut
+  } = await git`push origin --tags`
+
+  if (!pushTagsOk) {
+    console.error(chalk.red('Failed to push tags:'), '\n', pushTagsOut)
     return false
   }
   return true
