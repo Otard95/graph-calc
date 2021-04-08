@@ -138,7 +138,7 @@ async function createReleaseCommit(version, comment) {
 
 async function tagRelease(version) {
   
-  console.log(chalk.blue('Tag and push...'))
+  console.log(chalk.blue('Tag release...'))
   const {
     ok: tagOk,
     out: tagOut
@@ -154,6 +154,7 @@ async function tagRelease(version) {
 
 async function pushWithTags() {
 
+  console.log(chalk.blue('Push release to origin...'))
   const {
     ok: pushOk,
     out: pushOut
