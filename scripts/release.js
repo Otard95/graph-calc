@@ -1,6 +1,8 @@
 const fs = require('fs')
 const path = require('path')
+const cp = require('child_process')
 const inquirer = require('inquirer')
+const chalk = require('chalk')
 
 async function readFile(path) {
   return await new Promise((res, rej) => {
@@ -23,7 +25,25 @@ async function readJson(path) {
   return await readFile(path).then(res => JSON.parse(`${res}`))
 }
 async function writeJson(path, obj) {
-  return await readFile(path, JSON.stringify(obj, null, 2))
+  return await writeFile(path, JSON.stringify(obj, null, 2))
+}
+
+async function git(strings, ...exps) {
+
+  let command = 'git '
+  for (let i = 0; i < strings.length; i++) {
+    const str = strings[i]
+    const exp = i < exps.length ? exps[i] : ''
+    command += `${str} ${exp} `
+  }
+
+  return await new Promise((res, rej) => {
+    cp.exec(command, (err, stdout, stderr) => {
+      if (err) rej(err)
+      res(stdout || stderr)
+    })
+  }) 
+
 }
 
 function validateVersionNumber(next, prev) {
@@ -40,8 +60,8 @@ function validateVersionNumber(next, prev) {
   const nextParts = next.split('.')
 
   for (let i = 0; i < prevParts.length; i++) {
-    const prevPart = prevParts[i];
-    const nextPart = nextParts[i];
+    const prevPart = prevParts[i]
+    const nextPart = nextParts[i]
     if (Number(prevPart) < Number(nextPart))
       return true
     if (Number(prevPart) > Number(nextPart))
@@ -51,6 +71,19 @@ function validateVersionNumber(next, prev) {
 }
 
 async function main() {
+
+  console.log(chalk.blue('Verifying state...'))
+  const gitStatus = await git`status -b --porcelain`
+  if (gitStatus !== '## main...origin/main') {
+    if (!gitStatus.startsWith('## main...origin/main')) {
+      console.error(chalk.red('You are not on origin/main'))
+    }
+    if (gitStatus.split('\n').filter(line => line.length > 0).length > 1) {
+      console.error(chalk.red('You have uncommitted changes'))
+    }
+    console.error(chalk.red('Aborting!'))
+    return 4
+  }
 
   const packagePath = path.resolve(process.cwd(), 'package.json')
   const configPath = path.resolve(process.cwd(), 'src', 'utils', 'config.json')
@@ -81,8 +114,8 @@ async function main() {
       package.version = answers.newVersion
       config.version = answers.newVersion
 
-      writeJson(packagePath, package)
-      writeJson(configPath, config)
+      await writeJson(packagePath, package)
+      await writeJson(configPath, config)
 
   } catch (err) {
     console.error(err)
