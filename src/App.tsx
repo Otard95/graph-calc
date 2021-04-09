@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import './main.css'
-import logo from './public/img/Logo-large.png'
+import logo from './public/img/Logo-medium.png'
 
 const AppContainer = styled.div`
   height: 100vh;
