@@ -1,6 +1,6 @@
 {
   "name": "prosperous-universe-calulator",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A production profit calculator for Prosperous Universe",
   "main": "build/prod/index.html",
   "scripts": {
