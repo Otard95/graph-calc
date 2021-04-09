@@ -1,7 +1,8 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 
-import Logo from '/components/base/Logo'
+import dark from '/theme/dark'
+import Logo from '/components/elements/Logo'
 
 const AppContainer = styled.div`
   height: 100vh;
@@ -12,9 +13,11 @@ const AppContainer = styled.div`
 `
 
 const App = () => (
-  <AppContainer>
-    <h1>Prosperous Universe Calculator</h1>
-    <Logo size='large' alt="logo"/>
-  </AppContainer>
+  <ThemeProvider theme={dark}>
+    <AppContainer>
+      <h1>Prosperous Universe Calculator</h1>
+      <Logo size='large'/>
+    </AppContainer>
+  </ThemeProvider>
 )
 export default App
