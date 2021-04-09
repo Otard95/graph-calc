@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import './main.css'
 import logo from './public/img/Logo-medium.png'
 
 const AppContainer = styled.div`
