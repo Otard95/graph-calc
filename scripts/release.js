@@ -114,6 +114,17 @@ async function checkGitState () {
 
 async function createReleaseCommit(version, comment) {
 
+  console.log(chalk.blue('Adding changes...'))
+  const {
+    ok: addOk,
+    out: addOut
+  } = await git`add --all`
+
+  if (!addOk) {
+    console.error(chalk.red('Failed to add changes:'), '\n', addOut)
+    return false
+  }
+
   const commentAddition = comment
     ? [
         '',
@@ -126,7 +137,7 @@ async function createReleaseCommit(version, comment) {
   const {
     ok: commitOk,
     out: commitOut
-  } = await git`commit -am "Automated release commit for v${version}${commentAddition}"`
+  } = await git`commit -m "Automated release commit for v${version}${commentAddition}"`
 
   if (!commitOk) {
     console.error(chalk.red('Failed to commit changes:'), '\n', commitOut)
