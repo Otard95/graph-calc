@@ -14,6 +14,7 @@ body {
   display: grid;
   grid-template-rows: 2fr 2fr 1fr 3fr 3fr;
   justify-content: center;
+  align-items: center;
 }
 #pre-load img {
   margin: 0 auto;
