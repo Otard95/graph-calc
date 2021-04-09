@@ -21,10 +21,9 @@ const LogoImage = styled.img<LogoImageProps>`
 `
 
 interface LogoProps extends LogoImageProps {
-  alt: string
 }
-const Logo: React.FC<LogoProps> = ({ size, alt }) => (
-  <LogoImage size={size} src={sizes[size][1]} alt={alt}></LogoImage>
+const Logo: React.FC<LogoProps> = ({ size }) => (
+  <LogoImage size={size} src={sizes[size][1]} alt="Logo"></LogoImage>
 )
 
 export default Logo

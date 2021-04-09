@@ -1,9 +1,10 @@
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans:400,700);
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Droid Sans', sans-serif;
 }
 
 body {
