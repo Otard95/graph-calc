@@ -1,9 +1,9 @@
 import { Color, ColorVariants, DefaultTheme } from 'styled-components'
 
 const primary: Color = {
-  light: '#37516D',
-  base: '#123',
-  dark: '#040608',
+  light: '#fff',
+  base: '#eee',
+  dark: '#ccc',
 }
 const secondary: Color = {
   light: '#73BBE7',
@@ -26,9 +26,9 @@ const red: Color = {
   dark: '#A72925',
 }
 const gray: Color = {
-  light: '#eee',
-  base: '#bbb',
-  dark: '#777',
+  light: '#888',
+  base: '#444',
+  dark: '#222',
 }
 
 const buttons = {
@@ -90,7 +90,7 @@ const colors: ColorVariants = {
 }
 
 const dark: Omit<DefaultTheme, 'setTheme'> = {
-  name: 'dark',
+  name: 'light',
   colors,
   buttons,
 }

@@ -1,7 +1,39 @@
 import styled from 'styled-components'
-import { space, layout, color, borders, borderWidth, borderStyle, borderRadius, shadow } from 'styled-system'
+import {
+  space,
+  layout,
+  color,
+  borders,
+  borderWidth,
+  borderStyle,
+  borderRadius,
+  shadow,
+  LayoutProps,
+  SpaceProps,
+  ColorProps,
+  BorderProps,
+  BorderWidthProps,
+  BorderStyleProps,
+  BorderRadiusProps,
+  ShadowProps,
+  GridProps,
+  grid,
+  flexbox,
+  FlexboxProps
+} from 'styled-system'
 
-const Div = styled.div`
+type DivProps =
+  SpaceProps
+  & LayoutProps
+  & ColorProps
+  & BorderProps
+  & BorderWidthProps
+  & BorderStyleProps
+  & BorderRadiusProps
+  & ShadowProps
+  & FlexboxProps
+  & GridProps
+const Div = styled.div<DivProps>`
   ${space}
   ${layout}
   ${color}
@@ -10,5 +42,8 @@ const Div = styled.div`
   ${borderStyle}
   ${borderRadius}
   ${shadow}
+  
+  ${flexbox}
+  ${grid}
 `
 export default Div

@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import logoLarge from '/public/img/Logo-large.png'
-import logoMedium from '/public/img/Logo-medium.png'
-import logoSmall from '/public/img/Logo-small.png'
+import logoLarge from '$/public/img/Logo-large.png'
+import logoMedium from '$/public/img/Logo-medium.png'
+import logoSmall from '$/public/img/Logo-small.png'
 
 type LogoSizes = 'x-small' | 'small' | 'medium' | 'large' | 'x-large'
 const sizes: Record<LogoSizes, [number, string]> = {
@@ -17,7 +17,7 @@ interface LogoImageProps {
   size: LogoSizes
 }
 const LogoImage = styled.img<LogoImageProps>`
-  height: ${props => sizes[props.size][0]}px;
+  max-height: ${props => sizes[props.size][0]}px;
 `
 
 interface LogoProps extends LogoImageProps {
