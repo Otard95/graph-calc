@@ -39,6 +39,7 @@ const buttons = {
     fontWeight: 700,
     '&:hover': {
       color: primary.base,
+      fontWeight: 400,
     }
   },
   secondary: {

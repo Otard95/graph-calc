@@ -1,8 +1,8 @@
 import { Color, ColorVariants, DefaultTheme } from 'styled-components'
 
 const primary: Color = {
-  light: '#37516D',
-  base: '#123',
+  light: '#222a33',
+  base: '#161f26',
   dark: '#040608',
 }
 const secondary: Color = {
@@ -39,6 +39,7 @@ const buttons = {
     fontWeight: 700,
     '&:hover': {
       color: primary.base,
+      fontWeight: 400,
     }
   },
   secondary: {

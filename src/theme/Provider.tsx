@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ThemeProvider as BaseThemeProvider, createGlobalStyle, DefaultTheme, Themes } from 'styled-components'
 
+import useOSTheme from './os-theme'
 import dark from './dark'
 import light from './light'
 
@@ -24,7 +25,7 @@ const themes: Record<Themes, Omit<DefaultTheme, 'setTheme'>> = {
   light,
 }
 const ThemeProvider: React.FC = ({ children }) => {
-  const [ theme, setTheme ] = useState<Themes>('dark')
+  const [ theme, setTheme ] = useOSTheme()
   
   return (
     <BaseThemeProvider theme={{ ...themes[theme], setTheme }}>
