@@ -2,6 +2,7 @@ import React from 'react'
 
 import Div from '$/components/base/Div'
 import Button from '$/components/base/Button'
+import Heading from '$/components/base/Heading'
 import Logo from '$/components/elements/Logo'
 
 interface NavProps {
@@ -9,28 +10,20 @@ interface NavProps {
 }
 const Nav: React.FC<NavProps> = ({ area }) => (
   <Div
-    height='50px'
-    gridArea={area}
-    display='flex'
-    alignItems='center'
-    borderBottomWidth='2px'
-    borderBottomStyle='solid'
-    borderBottomColor='primary.light'
-    p='5px'
+    height='50px' gridArea={area} p='5px'
+    display='flex' alignItems='center'
+    borderBottomWidth='2px' borderBottomStyle='solid'
+    borderBottomColor='primary.light' backgroundColor='primary.dark'
   >
-    <Logo size='x-small'/>
+    <Logo size={40}/>
     <Div
-      height='100%'
-      display='flex'
-      flexDirection='column'
-      justifyContent='center'
-      p='0 10px'
-      borderRightWidth='2px'
-      borderRightStyle='solid'
-      borderRightColor='gray.base'
+      height='100%' p='0 10px'
+      display='flex' flexDirection='column'
+      justifyContent='center' borderRightWidth='2px'
+      borderRightStyle='solid' borderRightColor='gray.base'
     >
-      <h6>Prosperous Universe</h6>
-      <h4>Calculator</h4>
+      <Heading.h6>Prosperous Universe</Heading.h6>
+      <Heading.h4 letterSpacing='.17rem'>Calculator</Heading.h4>
     </Div>
     <Button variant='secondary' ml='10px'>Test</Button>
   </Div>
