@@ -1,9 +1,9 @@
 import { Color, ColorVariants, DefaultTheme } from 'styled-components'
 
 const primary: Color = {
-  light: '#222a33',
-  base: '#161f26',
-  dark: '#040608',
+  light: '#242424',
+  base: '#1c1c1c',
+  dark: '#181818',
 }
 const secondary: Color = {
   light: '#73BBE7',
@@ -37,6 +37,7 @@ const buttons = {
     backgroundColor: highlight.base,
     color: gray.light,
     fontWeight: 700,
+    padding: '2px 6px',
     '&:hover': {
       color: primary.base,
       fontWeight: 400,
@@ -47,6 +48,9 @@ const buttons = {
     backgroundColor: primary.light,
     color: gray.base,
     fontWeight: 400,
+    fontSize: '11px',
+    padding: '5px 6px',
+    textTransform: 'uppercase',
     '&:hover': {
       color: gray.light,
     }
@@ -56,6 +60,7 @@ const buttons = {
     backgroundColor: primary.light,
     color: gray.dark,
     fontWeight: 400,
+    padding: '2px 6px',
     '&:hover': {
       backgroundColor: highlight.base,
       color: primary.base,
@@ -66,6 +71,7 @@ const buttons = {
     backgroundColor: green.base,
     color: gray.light,
     fontWeight: 400,
+    padding: '2px 6px',
     '&:hover': {
       color: primary.base,
     }
@@ -75,6 +81,7 @@ const buttons = {
     backgroundColor: red.base,
     color: gray.light,
     fontWeight: 400,
+    padding: '2px 6px',
     '&:hover': {
       color: primary.base,
     }
