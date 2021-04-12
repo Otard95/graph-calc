@@ -6,7 +6,6 @@ import dark from './dark'
 import light from './light'
 
 const GlobalStyle = createGlobalStyle`
-  @import url(https://fonts.googleapis.com/css?family=Droid+Sans:400,700);
   * {
     margin: 0;
     padding: 0;
