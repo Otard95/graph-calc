@@ -12,10 +12,10 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
 
     font-family: 'Droid Sans', sans-serif;
+    color: ${props => props.theme.colors.gray.base};
   }
   body {
     background-color: ${props => props.theme.colors.primary.base};
-    color: ${props => props.theme.colors.gray.base};
   }
 `
 
