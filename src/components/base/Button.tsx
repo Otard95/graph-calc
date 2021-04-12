@@ -8,6 +8,5 @@ const Button = styled.button<ButtonProps>`
   ${space}
   ${layout}
   ${variant({ prop: 'variant', scale: 'buttons' })}
-  padding: 2px 6px;
 `
 export default Button
