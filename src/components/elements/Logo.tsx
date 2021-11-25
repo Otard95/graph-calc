@@ -15,13 +15,13 @@ const sizes: Record<LogoSizes, [number, string]> & { resolve: (size: number) => 
   small: [100, logoSmall],
   'x-small': [50, logoSmall],
   resolve: (size) => {
-    if (size < avg(sizes['x-small'][0] + sizes.small[0])) {
+    if (size < avg(sizes['x-small'][0], sizes.small[0])) {
       return sizes['x-small']
-    } else if (size < avg(sizes.small[0] + sizes.medium[0])) {
+    } else if (size < avg(sizes.small[0], sizes.medium[0])) {
       return sizes.small
-    } else if (size < avg(sizes.medium[0] + sizes.large[0])) {
+    } else if (size < avg(sizes.medium[0], sizes.large[0])) {
       return sizes.medium
-    } if (size < avg(sizes.large[0] + sizes['x-large'][0])) {
+    } if (size < avg(sizes.large[0], sizes['x-large'][0])) {
       return sizes.large
     }
     return sizes['x-large']
