@@ -21,11 +21,16 @@ declare module 'styled-components' {
   
   export type ButtonVariants = 'primary' | 'secondary' | 'action' | 'green' | 'red'
   export type Buttons = Record<ButtonVariants, Record<string, any>>
+
+  export type InputVariants = 'primary' | 'secondary'
+  export type Inputs = Record<InputVariants, Record<string, any>>
+
   export type Themes = 'dark' | 'light'
   
   export interface DefaultTheme {
-    name: string,
+    name: Themes,
     buttons: Buttons
+    inputs: Inputs
     colors: ColorVariants
     setTheme: React.Dispatch<React.SetStateAction<Themes>>
   }

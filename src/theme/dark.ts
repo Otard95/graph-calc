@@ -1,4 +1,4 @@
-import { Color, ColorVariants, DefaultTheme } from 'styled-components'
+import { Color, ColorVariants, DefaultTheme, Inputs } from 'styled-components'
 
 const primary: Color = {
   light: '#242424',
@@ -13,7 +13,7 @@ const secondary: Color = {
 const highlight: Color = {
   light: '#FFBB33',
   base: '#F7A600',
-  dark: '#c80',
+  dark: '#cc8800',
 }
 const green: Color = {
   light: '#79DD7A',
@@ -26,11 +26,16 @@ const red: Color = {
   dark: '#A72925',
 }
 const gray: Color = {
-  light: '#eee',
-  base: '#bbb',
-  dark: '#777',
+  light: '#eeeeee',
+  base: '#bbbbbb',
+  dark: '#777777',
 }
 
+const removeFocusOutline = {
+  ':focus': {
+    outline: 'none'
+  }
+}
 const buttons = {
   primary: {
     border: 'none',
@@ -41,7 +46,8 @@ const buttons = {
     '&:hover': {
       color: primary.base,
       fontWeight: 400,
-    }
+    },
+    ...removeFocusOutline
   },
   secondary: {
     border: 'none',
@@ -53,7 +59,8 @@ const buttons = {
     textTransform: 'uppercase',
     '&:hover': {
       color: gray.light,
-    }
+    },
+    ...removeFocusOutline
   },
   action: {
     border: 'none',
@@ -64,7 +71,8 @@ const buttons = {
     '&:hover': {
       backgroundColor: highlight.base,
       color: primary.base,
-    }
+    },
+    ...removeFocusOutline
   },
   green: {
     border: 'none',
@@ -74,7 +82,8 @@ const buttons = {
     padding: '2px 6px',
     '&:hover': {
       color: primary.base,
-    }
+    },
+    ...removeFocusOutline
   },
   red: {
     border: 'none',
@@ -84,7 +93,20 @@ const buttons = {
     padding: '2px 6px',
     '&:hover': {
       color: primary.base,
-    }
+    },
+    ...removeFocusOutline
+  },
+}
+
+const inputs: Inputs = {
+  primary: {
+    border: `none`,
+    borderBottom: `2px solid ${highlight.base}22`,
+    backgroundColor: `${highlight.base}22`,
+    ...removeFocusOutline
+  },
+  secondary: {
+    ...removeFocusOutline
   },
 }
 
@@ -101,6 +123,7 @@ const dark: Omit<DefaultTheme, 'setTheme'> = {
   name: 'dark',
   colors,
   buttons,
+  inputs
 }
 
 export default dark

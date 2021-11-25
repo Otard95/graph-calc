@@ -4,6 +4,7 @@ import Div from '$/components/base/Div'
 import Button from '$/components/base/Button'
 import Heading from '$/components/base/Heading'
 import Logo from '$/components/elements/Logo'
+import Input from '$/components/base/Input'
 
 interface NavProps {
   area: string
@@ -26,6 +27,7 @@ const Nav: React.FC<NavProps> = ({ area }) => (
       <Heading.h4 letterSpacing='.17rem'>Calculator</Heading.h4>
     </Div>
     <Button variant='secondary' ml='10px'>Test</Button>
+    <Input label="test" type="number"/>
   </Div>
 )
 export default Nav

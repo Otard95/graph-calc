@@ -1,4 +1,4 @@
-import { Color, ColorVariants, DefaultTheme } from 'styled-components'
+import { Color, ColorVariants, DefaultTheme, Inputs } from 'styled-components'
 
 const primary: Color = {
   light: '#fff',
@@ -81,6 +81,15 @@ const buttons = {
   },
 }
 
+const inputs: Inputs = {
+  primary: {
+
+  },
+  secondary: {
+
+  },
+}
+
 const colors: ColorVariants = {
   primary,
   secondary,
@@ -90,10 +99,11 @@ const colors: ColorVariants = {
   gray,
 }
 
-const dark: Omit<DefaultTheme, 'setTheme'> = {
+const light: Omit<DefaultTheme, 'setTheme'> = {
   name: 'light',
   colors,
   buttons,
+  inputs
 }
 
-export default dark
+export default light
