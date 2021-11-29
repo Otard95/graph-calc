@@ -1,0 +1,7 @@
+{
+  "baseFontSize": 12,
+  "cssTheme": "Solarized",
+  "enabledCssSnippets": [
+    "editor-monospace-font"
+  ]
+}
