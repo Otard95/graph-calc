@@ -50,7 +50,7 @@ as it has no limit on the number of connections it have.
 
 ## Data Types
 
-There are really  numbers.
+There are really only numbers.
 
 ## Composing nodes
 
@@ -63,11 +63,13 @@ All composed nodes require at least one [[#Base nodes|input node]] and one
 
 ## Base nodes
 
-| Name     | Inputs                     | Outputs  | Function                                                                                                                  |
-| -------- | -------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Add      | $$ I_{1},\ \cdots I_{n} $$ | $$ O $$  | Adds up the inputs and gives the result to output $$ O = \sum_{x=1}^{n} I_{i} $$                                          |
-| Subtract | $$ A,\ \cdots B_{n} $$     | $$ O $$  | Subtracts all $B_{n}$ inputs from and gives the result to output $A$ $$ O = A - \sum_{x=1}^{n} B_{i} $$                   |
-| Multiply | $$ I_{1},\ \cdots I_{n} $$ | $$ O $$  | Multiplies all the inputs and gives the result to output $$ O = I_{1}\times I_{2} \cdots \times I_{n} $$                  |
-| Division | $$ A,\ \cdots B_{n} $$     | $$ O $$  | Divides $A$ by all $B_{n}$ and gives the result to output $$ O = A\div B_{1} \cdots \div B_{n} $$                         |
-| Input    | External                   | $$ O $$  | This can only be used as a sub-node. In such a case its output is whatever the [[Terminology\|super-node]] inputted to it |
-| Output   | $$ I $$                    | External | This can only be used as a sub-node. In such a case its input is passes as an output of the [[Terminology\|super-node]]   |
+| Name     | Inputs                     | Outputs  | Function                                                                                                                   |
+| -------- | -------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Add      | $$ I_{1},\ \cdots I_{n} $$ | $$ O $$  | Adds up the inputs and gives the result to output $$ O = \sum_{x=1}^{n} I_{i} $$                                           |
+| Subtract | $$ A,\ \cdots B_{n} $$     | $$ O $$  | Subtracts all $B_{n}$ inputs from and gives the result to output $A$ $$ O = A - \sum_{x=1}^{n} B_{i} $$                    |
+| Multiply | $$ I_{1},\ \cdots I_{n} $$ | $$ O $$  | Multiplies all the inputs and gives the result to output $$ O = I_{1}\times I_{2} \cdots \times I_{n} $$                   |
+| Division | $$ A,\ \cdots B_{n} $$     | $$ O $$  | Divides $A$ by all $B_{n}$ and gives the result to output $$ O = A\div B_{1} \cdots \div B_{n} $$                          |
+| Input    | External                   | $$ O $$  | This can only be used as a sub-node. In such a case its output is whatever the [[Terminology\|super-node]] inputted to it  |
+| Output   | $$ I $$                    | External | This can only be used as a sub-node. In such a case its input is passes as an output of the [[Terminology\|super-node]]    |
+| Constant | None                       | $$ O $$  | The output from this node is constant and defined by what the user enters when creating the node.                          | 
+| Variable | None                       | $$ O $$  | The output from this node is variable and can be set from an external UI by anyone using, directly or indirectly, the node |
