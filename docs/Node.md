@@ -9,9 +9,6 @@ together into one output.
 
 *todo: Go over the similarities*
 
-Any given input or output has a specific [[#Data Types|data type]], and may only
-be connected to an output or input, respectively, with the same data type.
-
 When describing inputs and outputs we use the following [[Latex|latex]] syntax:
 
 > **Labels:**  
@@ -37,11 +34,6 @@ When describing inputs and outputs we use the following [[Latex|latex]] syntax:
 > $I_{1}$ and $I_{2}$ are not optional and since $\cdots I_{n}$ can be $0$
 > to $n$ inputs there is now between $2$ and $n$ inputs, since we consider
 > the $I_{n}$ to start at $I_{3}$.
->
-> **Arrays**  
-> An input or output may be an array as described in [[#Data Types]].
-> We'd write this like:  
-> $[Label]$
 
 ### Inputs
 
@@ -58,31 +50,24 @@ as it has no limit on the number of connections it have.
 
 ## Data Types
 
-There are really only two data types, numbers and lists. Though lists may only contain
-numbers.
+There are really  numbers.
 
 ## Composing nodes
 
 Composing a node is the process of combining multiple [[Terminology|sub-nodes]]
 to achieve some function and saving that as a new [[Terminology|super-node]].
-This new node can then be reused else where and even be used as a sub-node itself.
+This new node can then be reused elsewhere and even be used as a sub-node itself.
 
 All composed nodes require at least one [[#Base nodes|input node]] and one
 [[#Base nodes|output node]]
 
 ## Base nodes
 
-| Name     | Inputs                     | Outputs                    | Function                                                                                                                  |
-| -------- | -------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Add      | $$ I_{1},\ \cdots I_{n} $$ | $$ O $$                    | Adds up the inputs and gives the result to output $$ O = \sum_{x=1}^{n} I_{i} $$                                          |
-| Sum      | $$ [I] $$                  | $$ O $$                    | Sums all numbers in $I$ and gives the result to output $$ O = \sum_{i=0}^{len(I)} x_{i} $$                                |
-| Subtract | $$ A,\ \cdots B_{n} $$     | $$ O $$                    | Subtracts all $B_{n}$ inputs from and gives the result to output $A$ $$ O = A - \sum_{x=1}^{n} B_{i} $$                   |
-| Multiply | $$ I_{1},\ \cdots I_{n} $$ | $$ O $$                    | Multiplies all the inputs and gives the result to output $$ O = I_{1}\times I_{2} \cdots \times I_{n} $$                  |
-| Division | $$ A,\ \cdots B_{n} $$     | $$ O $$                    | Divides $A$ by all $B_{n}$ and gives the result to output $$ O = A\div B_{1} \cdots \div B_{n} $$                         |
-| Spread   | $$ [I] $$                  | $$ O_{1},\ \cdots O_{n} $$ | Passes each element to its own output                                                                                     |
-| Input    | External                   | $$ O $$                    | This can only be used as a sub-node. In such a case its output is whatever the [[Terminology\|super-node]] inputted to it |
-| Output   | $$ I $$                    | External                   | This can only be used as a sub-node. In such a case its input is passes as an output of the [[Terminology\|super-node]]   | 
-
-## Dev note
- 
- Arrays cause some complexity as we'd need to keep track of their lengths.
+| Name     | Inputs                     | Outputs  | Function                                                                                                                  |
+| -------- | -------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Add      | $$ I_{1},\ \cdots I_{n} $$ | $$ O $$  | Adds up the inputs and gives the result to output $$ O = \sum_{x=1}^{n} I_{i} $$                                          |
+| Subtract | $$ A,\ \cdots B_{n} $$     | $$ O $$  | Subtracts all $B_{n}$ inputs from and gives the result to output $A$ $$ O = A - \sum_{x=1}^{n} B_{i} $$                   |
+| Multiply | $$ I_{1},\ \cdots I_{n} $$ | $$ O $$  | Multiplies all the inputs and gives the result to output $$ O = I_{1}\times I_{2} \cdots \times I_{n} $$                  |
+| Division | $$ A,\ \cdots B_{n} $$     | $$ O $$  | Divides $A$ by all $B_{n}$ and gives the result to output $$ O = A\div B_{1} \cdots \div B_{n} $$                         |
+| Input    | External                   | $$ O $$  | This can only be used as a sub-node. In such a case its output is whatever the [[Terminology\|super-node]] inputted to it |
+| Output   | $$ I $$                    | External | This can only be used as a sub-node. In such a case its input is passes as an output of the [[Terminology\|super-node]]   |
