@@ -9,7 +9,7 @@ Think 'visual shader editor' just, like, a million times simpler.
 
 ### Even at all
 
-It's a cool project that incorporates a few need elements and it might be useful
+It's a cool project that incorporates a few neet elements and it might be useful
 for other things in the future.
 
 ### Why web based
