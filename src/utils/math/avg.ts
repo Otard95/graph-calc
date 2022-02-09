@@ -1,0 +1,1 @@
+export default (...num: number[]): number => num.reduce((sum, n) => sum + n, 0) / num.length

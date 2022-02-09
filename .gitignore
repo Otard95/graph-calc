@@ -41,9 +41,6 @@ build/Release
 node_modules/
 jspm_packages/
 
-# TypeScript v1 declaration files
-typings/
-
 # TypeScript cache
 *.tsbuildinfo
 
@@ -102,3 +99,12 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Obsidian
+
+docs/.obsidian/*
+!docs/.obsidian/app.json
+!docs/.obsidian/core-plugins.json
+!docs/.obsidian/community-plugins.json
+!docs/.obsidian/snippets/
+!docs/.obsidian/plugins/

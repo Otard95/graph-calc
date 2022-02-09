@@ -1,24 +1,11 @@
 import React from 'react'
-import styled from 'styled-components'
 
-import './main.css'
-import logo from './public/img/Logo-medium.png'
-
-const AppContainer = styled.div`
-  height: 100vh;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  padding: 10rem 0;
-`
-const Logo = styled.img`
-  height: 500px;
-`
+import ThemeProvider from '$/theme/Provider'
+import Layout from '$/Layout'
 
 const App = () => (
-  <AppContainer>
-    <h1>Prosperous Universe Calculator</h1>
-    <Logo src={logo} alt="logo"/>
-  </AppContainer>
+  <ThemeProvider>
+    <Layout/>
+  </ThemeProvider>
 )
 export default App
