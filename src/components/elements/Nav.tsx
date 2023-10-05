@@ -23,8 +23,8 @@ const Nav: React.FC<NavProps> = ({ area }) => (
       justifyContent='center' borderRightWidth='2px'
       borderRightStyle='solid' borderRightColor='gray.base'
     >
-      <Heading.h6>Prosperous Universe</Heading.h6>
-      <Heading.h4 letterSpacing='.17rem'>Calculator</Heading.h4>
+      <Heading.h6>Graph</Heading.h6>
+      <Heading.h4>Calculator</Heading.h4>
     </Div>
     <Button variant='secondary' ml='10px'>Test</Button>
     <Input label="test" type="number"/>

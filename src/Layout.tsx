@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Div from '$/components/base/Div'
-import Logo from '$/components/elements/Logo'
 import Nav from '$/components/elements/Nav'
 
 const DesktopAreas = `
@@ -28,8 +27,6 @@ const Layout: React.FC = () => (
   >
     <Nav area='nav'/>
     <AppContainer>
-      <h1>Prosperous Universe Calculator</h1>
-      <Logo size='large'/>
     </AppContainer>
   </Div>
 )
